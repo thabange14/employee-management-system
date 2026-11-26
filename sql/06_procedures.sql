@@ -42,3 +42,31 @@ BEGIN
 END//
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_review_leave(IN p_leave INT, IN p_decision VARCHAR(10))
+BEGIN
+    DECLARE current_status VARCHAR(10);
+
+    IF p_decision NOT IN ('APPROVED','REJECTED') THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Decision must be APPROVED or REJECTED';
+    END IF;
+
+    SELECT status INTO current_status
+    FROM leave_requests
+    WHERE leave_id = p_leave;
+
+    IF current_status IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Leave request not found';
+    ELSEIF current_status <> 'PENDING' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Leave request was already reviewed';
+    END IF;
+
+    UPDATE leave_requests SET status = p_decision WHERE leave_id = p_leave;
+END//
+
+DELIMITER ;
