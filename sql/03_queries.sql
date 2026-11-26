@@ -63,3 +63,18 @@ FROM employees e
 LEFT JOIN attendance a ON a.employee_id = e.employee_id
 GROUP BY e.employee_id, e.first_name, e.last_name
 ORDER BY e.employee_id;
+
+-- Employees earning more than their department's average
+SELECT
+    CONCAT(e.first_name, ' ', e.last_name) AS employee,
+    d.name AS department,
+    e.salary,
+    (SELECT ROUND(AVG(salary), 2)
+     FROM employees
+     WHERE department_id = e.department_id) AS dept_average
+FROM employees e
+JOIN departments d ON d.department_id = e.department_id
+WHERE e.salary > (SELECT AVG(salary)
+                  FROM employees
+                  WHERE department_id = e.department_id)
+ORDER BY d.name;
