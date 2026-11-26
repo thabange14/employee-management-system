@@ -46,3 +46,11 @@ CREATE TABLE leave_requests (
     CONSTRAINT chk_leave_dates CHECK (end_date >= start_date),
     FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE
 );
+
+CREATE TABLE salary_audit (
+    audit_id    INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT NOT NULL,
+    old_salary  DECIMAL(12,2),
+    new_salary  DECIMAL(12,2),
+    changed_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
