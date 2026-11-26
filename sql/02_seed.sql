@@ -37,3 +37,11 @@ INSERT INTO leave_requests (employee_id, leave_type, start_date, end_date, statu
 INSERT INTO payroll (employee_id, pay_month, base_salary, bonus, deductions)
 SELECT employee_id, '2026-10-01', salary, 0, ROUND(salary * 0.15, 2)
 FROM employees;
+
+INSERT INTO attendance (employee_id, work_date, check_in, check_out, status) VALUES
+(4,'2026-11-23','08:00','17:00','PRESENT'),
+(5,'2026-11-23','08:45','17:10','LATE'),
+(6,'2026-11-23',NULL,NULL,'REMOTE'),
+(4,'2026-11-24','07:55','17:05','PRESENT'),
+(5,'2026-11-24',NULL,NULL,'ABSENT'),
+(6,'2026-11-24','08:00','16:50','PRESENT');

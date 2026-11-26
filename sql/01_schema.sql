@@ -66,3 +66,14 @@ CREATE TABLE payroll (
     UNIQUE KEY uq_employee_month (employee_id, pay_month),
     FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE
 );
+
+CREATE TABLE attendance (
+    attendance_id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id   INT NOT NULL,
+    work_date     DATE NOT NULL,
+    check_in      TIME,
+    check_out     TIME,
+    status        ENUM('PRESENT','ABSENT','LATE','REMOTE') NOT NULL DEFAULT 'PRESENT',
+    UNIQUE KEY uq_employee_day (employee_id, work_date),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE
+);

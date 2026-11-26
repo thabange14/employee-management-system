@@ -51,3 +51,15 @@ LEFT JOIN payroll p   ON p.employee_id = e.employee_id
                      AND p.pay_month = '2026-10-01'
 GROUP BY d.department_id, d.name
 ORDER BY total_net_pay DESC;
+
+-- Attendance summary per employee
+SELECT
+    CONCAT(e.first_name, ' ', e.last_name) AS employee,
+    COUNT(CASE WHEN a.status = 'PRESENT' THEN 1 END) AS present,
+    COUNT(CASE WHEN a.status = 'LATE'    THEN 1 END) AS late,
+    COUNT(CASE WHEN a.status = 'ABSENT'  THEN 1 END) AS absent,
+    COUNT(CASE WHEN a.status = 'REMOTE'  THEN 1 END) AS remote
+FROM employees e
+LEFT JOIN attendance a ON a.employee_id = e.employee_id
+GROUP BY e.employee_id, e.first_name, e.last_name
+ORDER BY e.employee_id;
