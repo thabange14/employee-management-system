@@ -11,3 +11,19 @@ BEGIN
 END//
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_generate_payroll(IN p_month DATE)
+BEGIN
+    INSERT IGNORE INTO payroll (employee_id, pay_month, base_salary, bonus, deductions)
+    SELECT employee_id,
+           DATE_FORMAT(p_month, '%Y-%m-01'),
+           salary,
+           0,
+           ROUND(salary * 0.15, 2)
+    FROM employees
+    WHERE status = 'ACTIVE';
+END//
+
+DELIMITER ;
