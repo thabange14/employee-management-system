@@ -27,3 +27,8 @@ INSERT INTO employees (first_name,last_name,email,phone,hire_date,job_id,departm
 ('Mpho','Tau','mpho.tau@company.com','+26771000005','2022-03-01',2,1,1,32000),
 ('Boitumelo','Molefe','boitumelo.molefe@company.com','+26771000006','2023-06-12',2,1,1,24000),
 ('Tebogo','Ramotswe','tebogo.ramotswe@company.com','+26771000007','2020-09-01',4,3,3,28000);
+
+INSERT INTO leave_requests (employee_id, leave_type, start_date, end_date, status, reason) VALUES
+(4,'ANNUAL','2026-12-15','2026-12-31','APPROVED','Holiday'),
+(5,'SICK','2026-11-24','2026-11-25','APPROVED','Flu'),
+(6,'ANNUAL','2026-12-01','2026-12-05','PENDING','Family event');

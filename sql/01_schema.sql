@@ -34,3 +34,15 @@ CREATE TABLE employees (
     FOREIGN KEY (department_id) REFERENCES departments(department_id),
     FOREIGN KEY (manager_id)    REFERENCES employees(employee_id) ON DELETE SET NULL
 );
+
+CREATE TABLE leave_requests (
+    leave_id    INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT NOT NULL,
+    leave_type  ENUM('ANNUAL','SICK','MATERNITY','PATERNITY','UNPAID') NOT NULL,
+    start_date  DATE NOT NULL,
+    end_date    DATE NOT NULL,
+    status      ENUM('PENDING','APPROVED','REJECTED') NOT NULL DEFAULT 'PENDING',
+    reason      VARCHAR(255),
+    CONSTRAINT chk_leave_dates CHECK (end_date >= start_date),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE
+);
