@@ -37,3 +37,17 @@ SELECT
 FROM leave_requests l
 JOIN employees e ON e.employee_id = l.employee_id
 WHERE l.status = 'PENDING';
+
+-- October 2026 payroll cost per department
+SELECT
+    d.name           AS department,
+    COUNT(p.payroll_id) AS payslips,
+    SUM(p.base_salary)  AS gross_pay,
+    SUM(p.deductions)   AS total_deductions,
+    SUM(p.net_pay)      AS total_net_pay
+FROM departments d
+LEFT JOIN employees e ON e.department_id = d.department_id
+LEFT JOIN payroll p   ON p.employee_id = e.employee_id
+                     AND p.pay_month = '2026-10-01'
+GROUP BY d.department_id, d.name
+ORDER BY total_net_pay DESC;

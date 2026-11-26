@@ -32,3 +32,8 @@ INSERT INTO leave_requests (employee_id, leave_type, start_date, end_date, statu
 (4,'ANNUAL','2026-12-15','2026-12-31','APPROVED','Holiday'),
 (5,'SICK','2026-11-24','2026-11-25','APPROVED','Flu'),
 (6,'ANNUAL','2026-12-01','2026-12-05','PENDING','Family event');
+
+-- October payslip for every employee: 15% deductions, no bonus
+INSERT INTO payroll (employee_id, pay_month, base_salary, bonus, deductions)
+SELECT employee_id, '2026-10-01', salary, 0, ROUND(salary * 0.15, 2)
+FROM employees;

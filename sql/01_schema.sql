@@ -54,3 +54,15 @@ CREATE TABLE salary_audit (
     new_salary  DECIMAL(12,2),
     changed_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE payroll (
+    payroll_id  INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT NOT NULL,
+    pay_month   DATE NOT NULL,
+    base_salary DECIMAL(12,2) NOT NULL,
+    bonus       DECIMAL(12,2) NOT NULL DEFAULT 0,
+    deductions  DECIMAL(12,2) NOT NULL DEFAULT 0,
+    net_pay     DECIMAL(12,2) GENERATED ALWAYS AS (base_salary + bonus - deductions) STORED,
+    UNIQUE KEY uq_employee_month (employee_id, pay_month),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE
+);
