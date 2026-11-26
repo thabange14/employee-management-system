@@ -1,0 +1,29 @@
+USE ems;
+
+INSERT INTO departments (name, location) VALUES
+('Engineering','Gaborone'),
+('Human Resources','Gaborone'),
+('Finance','Francistown'),
+('Sales','Maun');
+
+INSERT INTO jobs (title, min_salary, max_salary) VALUES
+('CTO',60000,120000),
+('Software Engineer',20000,60000),
+('HR Manager',25000,55000),
+('Accountant',18000,45000),
+('Sales Executive',12000,40000),
+('Finance Manager',30000,70000);
+
+
+-- Managers 
+INSERT INTO employees (first_name,last_name,email,phone,hire_date,job_id,department_id,manager_id,salary) VALUES
+('Thabo','Mokoena','thabo.mokoena@company.com','+26771000001','2018-02-01',1,1,NULL,95000),
+('Neo','Kgosi','neo.kgosi@company.com','+26771000002','2019-05-15',3,2,NULL,42000),
+('Lesego','Dube','lesego.dube@company.com','+26771000003','2019-08-20',6,3,NULL,55000);
+
+-- Staff who report to  managers
+INSERT INTO employees (first_name,last_name,email,phone,hire_date,job_id,department_id,manager_id,salary) VALUES
+('Kabelo','Sithole','kabelo.sithole@company.com','+26771000004','2021-01-10',2,1,1,38000),
+('Mpho','Tau','mpho.tau@company.com','+26771000005','2022-03-01',2,1,1,32000),
+('Boitumelo','Molefe','boitumelo.molefe@company.com','+26771000006','2023-06-12',2,1,1,24000),
+('Tebogo','Ramotswe','tebogo.ramotswe@company.com','+26771000007','2020-09-01',4,3,3,28000);
