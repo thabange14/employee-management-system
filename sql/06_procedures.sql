@@ -27,3 +27,18 @@ BEGIN
 END//
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_terminate_employee(IN p_employee INT)
+BEGIN
+    UPDATE employees
+    SET status = 'TERMINATED'
+    WHERE employee_id = p_employee;
+
+    UPDATE employees
+    SET manager_id = NULL
+    WHERE manager_id = p_employee;
+END//
+
+DELIMITER ;
